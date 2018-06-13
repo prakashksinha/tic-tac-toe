@@ -318,7 +318,7 @@
         } ],
         "parameters" : [ {
           "in" : "path",
-          "name" : "id",
+          "name" : "gid",
           "type" : "string",
           "required" : true
         } ]
