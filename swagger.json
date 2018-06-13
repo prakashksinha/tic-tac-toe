@@ -1,11 +1,13 @@
 {
   "swagger" : "2.0",
   "info" : {
+    "title" : "Tic Tac Toe",
     "description" : "Tic Tac Toe Game Server Sample\n",
     "version" : "1.0.0",
-    "title" : "Tic Tac Toe",
     "termsOfService" : "http://swagger.io/terms/",
     "contact" : {
+      "name" : "Prakash Sinha",
+      "url" : "https://linkedin.com/in/prakashksinha",
       "email" : "prakashksinha@gmail.com"
     },
     "license" : {
@@ -13,7 +15,7 @@
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "basePath" : "/integratedworld/tic-tac-toe-ef/1.0.0",
+  "host" : "virtserver.swaggerhub.com",
   "schemes" : [ "https" ],
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
@@ -22,10 +24,11 @@
       "post" : {
         "tags" : [ "game" ],
         "summary" : "Create a new game",
+        "description" : "Used while creating the first instance",
         "operationId" : "addGame",
         "parameters" : [ {
-          "in" : "body",
           "name" : "body",
+          "in" : "game",
           "description" : "All data that is needed to create.",
           "required" : true,
           "schema" : {
@@ -372,7 +375,7 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "playername" : {
+        "playerName" : {
           "type" : "string"
         },
         "firstName" : {
@@ -393,19 +396,19 @@
         "gameWon" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Game"
+            "$ref" : "#/definitions/Game/id"
           }
         },
         "gameLost" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Game"
+            "$ref" : "#/definitions/Game/id"
           }
         },
         "friends" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Player"
+            "$ref" : "#/definitions/Player/playerName"
           }
         }
       }
@@ -430,7 +433,7 @@
         "xPlayer" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Player"
+            "$ref" : "#/definitions/Player/playerName"
           }
         },
         "xPosition" : {
@@ -439,7 +442,7 @@
         "oPlayer" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Player"
+            "$ref" : "#/definitions/Player/playerName"
           }
         },
         "oPosition" : {
@@ -448,13 +451,13 @@
         "winner" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Player"
+            "$ref" : "#/definitions/Player/playerName"
           }
         },
         "looser" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Player"
+            "$ref" : "#/definitions/Player/playerName"
           }
         },
         "winnerSign" : {
@@ -490,5 +493,5 @@
     "description" : "Find out more about Swagger",
     "url" : "http://swagger.io"
   },
-  "host" : "virtserver.swaggerhub.com"
+  "basePath" : "/integratedworld/tic-tac-toe-ef/1.0.0"
 }
