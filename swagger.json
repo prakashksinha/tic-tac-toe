@@ -393,10 +393,16 @@
         "gameWon" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Player"
+            "$ref" : "#/definitions/Game"
           }
         },
         "gameLost" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Game"
+          }
+        },
+        "friends" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/Player"
@@ -406,7 +412,7 @@
     },
     "Game" : {
       "type" : "object",
-      "required" : [ "oPlayer,", "xPlayer" ],
+      "required" : [ "oPlayer", "xPlayer" ],
       "properties" : {
         "id" : {
           "type" : "integer",
@@ -414,6 +420,7 @@
         },
         "name" : {
           "type" : "string",
+          "default" : "My Game",
           "example" : "mygame"
         },
         "created" : {
