@@ -1,13 +1,12 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "title" : "Tic Tac Toe",
-    "description" : "Tic Tac Toe Game Server Sample\n",
-    "version" : "1.0.0",
-    "termsOfService" : "http://swagger.io/terms/",
+    "title" : "Tic Tac Toe Service APIs",
+    "version" : "1.0",
+    "description" : "Tic Tac Toe Service API is a sample document to illustrate various end-points and resources per OAS2 standards.",
     "contact" : {
       "name" : "Prakash Sinha",
-      "url" : "https://linkedin.com/in/prakashksinha",
+      "url" : "https://github.com/prakashksinha/tic-tac-toe",
       "email" : "prakashksinha@gmail.com"
     },
     "license" : {
@@ -15,483 +14,671 @@
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host" : "virtserver.swaggerhub.com",
-  "schemes" : [ "https" ],
-  "consumes" : [ "application/json" ],
-  "produces" : [ "application/json" ],
+  "host" : "prakashksinha.wordpress.com",
   "paths" : {
-    "/game" : {
-      "post" : {
+    "/games" : {
+      "get" : {
+        "operationId" : "findGames",
+        "responses" : {
+          "200" : {
+            "description" : "Successfull",
+            "schema" : {
+              "$ref" : "#/definitions/game-partial-data"
+            },
+            "examples" : {
+              "application/json" : {
+                "id" : "consequat"
+              }
+            }
+          }
+        },
+        "summary" : "Find games by status",
         "tags" : [ "game" ],
-        "summary" : "Create a new game",
-        "description" : "Used while creating the first instance",
-        "operationId" : "addGame",
+        "security" : [ {
+          "read-auth" : [ ]
+        } ],
         "parameters" : [ {
+          "in" : "query",
+          "name" : "status",
+          "type" : "string",
+          "enum" : [ "started", "in progress", "ended" ],
+          "description" : "Enumerated data type to get the list of games"
+        } ],
+        "description" : "Returns complete data set of games matching the status"
+      },
+      "post" : {
+        "operationId" : "createGame",
+        "parameters" : [ {
+          "in" : "body",
           "name" : "body",
-          "in" : "game",
-          "description" : "All data that is needed to create.",
-          "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/Game"
+            "$ref" : "#/definitions/game-complete-data"
           }
         } ],
         "responses" : {
           "201" : {
-            "description" : "Successfully created.",
+            "description" : "",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Game"
+              "$ref" : "#/definitions/game-complete-data"
+            },
+            "examples" : {
+              "application/json" : {
+                "id" : "consequat",
+                "name" : "ma",
+                "moves" : [ {
+                  "xPos" : 4,
+                  "xPlayer" : {
+                    "id" : "in"
+                  },
+                  "yPos" : 6,
+                  "yPlayer" : {
+                    "id" : "in enim dolor"
+                  }
+                }, {
+                  "xPos" : 2,
+                  "xPlayer" : {
+                    "id" : "elit in sit ipsum"
+                  },
+                  "yPos" : 7,
+                  "yPlayer" : {
+                    "id" : "ullamco irure"
+                  }
+                } ],
+                "result" : [ {
+                  "winner" : {
+                    "id" : "incididunt culpa"
+                  },
+                  "loser" : {
+                    "id" : "ipsum dolore"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "ut commodo"
+                  },
+                  "loser" : {
+                    "id" : "minim consequat et"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "ut"
+                  },
+                  "loser" : {
+                    "id" : "minim in aliquip"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "nulla Excepteur tempor"
+                  },
+                  "loser" : {
+                    "id" : "elit Duis"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "Lorem laborum cupidatat ut"
+                  },
+                  "loser" : {
+                    "id" : "incididunt anim"
+                  }
+                } ],
+                "status" : "ended",
+                "session" : "https://y-i"
               }
             }
-          },
-          "405" : {
-            "description" : "Invalid input"
           }
         },
         "security" : [ {
-          "game_auth" : [ "write:games", "read:games" ]
+          "write-auth" : [ ]
+        } ],
+        "tags" : [ "game" ],
+        "summary" : "Creates the game object",
+        "description" : "Used during the start of the game to create initial object"
+      }
+    },
+    "/games/{id}" : {
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "type" : "string",
+        "required" : true
+      } ],
+      "get" : {
+        "operationId" : "getGame",
+        "responses" : {
+          "200" : {
+            "description" : "Successfull",
+            "schema" : {
+              "$ref" : "#/definitions/game-complete-data"
+            },
+            "examples" : {
+              "application/json" : {
+                "id" : "consequat",
+                "name" : "ma",
+                "moves" : [ {
+                  "xPos" : 4,
+                  "xPlayer" : {
+                    "id" : "in"
+                  },
+                  "yPos" : 6,
+                  "yPlayer" : {
+                    "id" : "in enim dolor"
+                  }
+                }, {
+                  "xPos" : 2,
+                  "xPlayer" : {
+                    "id" : "elit in sit ipsum"
+                  },
+                  "yPos" : 7,
+                  "yPlayer" : {
+                    "id" : "ullamco irure"
+                  }
+                } ],
+                "result" : [ {
+                  "winner" : {
+                    "id" : "incididunt culpa"
+                  },
+                  "loser" : {
+                    "id" : "ipsum dolore"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "ut commodo"
+                  },
+                  "loser" : {
+                    "id" : "minim consequat et"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "ut"
+                  },
+                  "loser" : {
+                    "id" : "minim in aliquip"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "nulla Excepteur tempor"
+                  },
+                  "loser" : {
+                    "id" : "elit Duis"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "Lorem laborum cupidatat ut"
+                  },
+                  "loser" : {
+                    "id" : "incididunt anim"
+                  }
+                } ],
+                "status" : "ended",
+                "session" : "https://y-i"
+              }
+            }
+          }
+        },
+        "summary" : "Returns the game data",
+        "description" : "Retrieves the full data set for the given game id",
+        "tags" : [ "game" ],
+        "security" : [ {
+          "read-auth" : [ ]
         } ]
       },
       "put" : {
-        "tags" : [ "game" ],
-        "summary" : "Update an existing game",
         "operationId" : "updateGame",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
-          "description" : "Game object that needs to be added",
-          "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/Game"
+            "$ref" : "#/definitions/game-complete-data"
           }
-        } ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid ID supplied"
-          },
-          "404" : {
-            "description" : "Game not found"
-          },
-          "405" : {
-            "description" : "Validation exception"
-          }
-        },
-        "security" : [ {
-          "game_auth" : [ "write:games", "read:games" ]
-        } ]
-      }
-    },
-    "/game/{gameId}" : {
-      "get" : {
-        "tags" : [ "game" ],
-        "summary" : "Find game by ID",
-        "description" : "Returns a single game",
-        "operationId" : "getGameById",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "gameId",
-          "in" : "path",
-          "description" : "ID of game to return",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
+            "description" : "Successful",
             "schema" : {
-              "$ref" : "#/definitions/Game"
-            }
-          },
-          "400" : {
-            "description" : "Invalid ID supplied"
-          },
-          "404" : {
-            "description" : "Game not found"
-          }
-        },
-        "security" : [ {
-          "api_key" : [ ]
-        } ]
-      },
-      "delete" : {
-        "tags" : [ "game" ],
-        "summary" : "Deletes a game",
-        "operationId" : "deleteGame",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "api_key",
-          "in" : "header",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "gameId",
-          "in" : "path",
-          "description" : "Game id to delete",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "204" : {
-            "description" : "Deleted"
-          },
-          "400" : {
-            "description" : "Invalid ID supplied"
-          },
-          "404" : {
-            "description" : "Game not found"
-          }
-        },
-        "security" : [ {
-          "game_auth" : [ "write:games", "read:games" ]
-        } ]
-      }
-    },
-    "/player" : {
-      "post" : {
-        "tags" : [ "player" ],
-        "summary" : "Create player",
-        "description" : "Only for logged in player.",
-        "operationId" : "createPlayer",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Created player object",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/Player"
-          }
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
-    "/player/login" : {
-      "get" : {
-        "tags" : [ "player" ],
-        "summary" : "Logs player into the system",
-        "operationId" : "loginPlayer",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "playername",
-          "in" : "query",
-          "description" : "The player name for login",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "password",
-          "in" : "query",
-          "description" : "The password for login",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "string"
+              "$ref" : "#/definitions/game-complete-data"
             },
-            "headers" : {
-              "X-Rate-Limit" : {
-                "type" : "integer",
-                "format" : "int32",
-                "description" : "calls per hour allowed by the player"
-              },
-              "X-Expires-After" : {
-                "type" : "string",
-                "format" : "date-time",
-                "description" : "date in UTC when token expires"
+            "examples" : {
+              "application/json" : {
+                "id" : "consequat",
+                "name" : "ma-updated",
+                "moves" : [ {
+                  "xPos" : 4,
+                  "xPlayer" : {
+                    "id" : "in"
+                  },
+                  "yPos" : 6,
+                  "yPlayer" : {
+                    "id" : "in enim dolor"
+                  }
+                }, {
+                  "xPos" : 2,
+                  "xPlayer" : {
+                    "id" : "elit in sit ipsum"
+                  },
+                  "yPos" : 7,
+                  "yPlayer" : {
+                    "id" : "ullamco irure"
+                  }
+                } ],
+                "result" : [ {
+                  "winner" : {
+                    "id" : "incididunt culpa"
+                  },
+                  "loser" : {
+                    "id" : "ipsum dolore"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "ut commodo"
+                  },
+                  "loser" : {
+                    "id" : "minim consequat et"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "ut"
+                  },
+                  "loser" : {
+                    "id" : "minim in aliquip"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "nulla Excepteur tempor"
+                  },
+                  "loser" : {
+                    "id" : "elit Duis"
+                  }
+                }, {
+                  "winner" : {
+                    "id" : "Lorem laborum cupidatat ut"
+                  },
+                  "loser" : {
+                    "id" : "incididunt anim"
+                  }
+                } ],
+                "status" : "ended",
+                "session" : "https://y-i"
               }
             }
-          },
-          "400" : {
-            "description" : "Invalid playername/password supplied"
           }
-        }
-      }
-    },
-    "/player/logout" : {
-      "get" : {
-        "tags" : [ "player" ],
-        "summary" : "Logs out current logged in player session",
-        "operationId" : "logoutPlayer",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
-    "/player/{playername}" : {
-      "get" : {
-        "tags" : [ "player" ],
-        "summary" : "Get player by player name",
-        "operationId" : "getPlayerByName",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "playername",
-          "in" : "path",
-          "description" : "The name that needs to be fetched.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/Player"
-            }
-          },
-          "400" : {
-            "description" : "Invalid playername supplied"
-          },
-          "404" : {
-            "description" : "Player not found"
-          }
-        }
-      },
-      "put" : {
-        "tags" : [ "player" ],
-        "summary" : "Updated player",
-        "description" : "This can only be done by the logged in player.",
-        "operationId" : "updatePlayer",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "playername",
-          "in" : "path",
-          "description" : "name that need to be updated",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Updated player object",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/Player"
-          }
-        } ],
-        "responses" : {
-          "400" : {
-            "description" : "Invalid player supplied"
-          },
-          "404" : {
-            "description" : "Player not found"
-          }
-        }
+        },
+        "tags" : [ "game" ]
       },
       "delete" : {
-        "tags" : [ "player" ],
-        "summary" : "Delete player",
-        "description" : "This can only be done by the logged in player.",
-        "operationId" : "deletePlayer",
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "playername",
-          "in" : "path",
-          "description" : "The name that needs to be deleted",
-          "required" : true,
-          "type" : "string"
-        } ],
+        "operationId" : "deleteGame",
         "responses" : {
           "204" : {
-            "description" : "Deleted"
-          },
-          "400" : {
-            "description" : "Invalid playername supplied"
-          },
-          "404" : {
-            "description" : "Player not found"
+            "description" : "Successfully deleted"
           }
-        }
+        },
+        "tags" : [ "game" ],
+        "summary" : "Deletes the game",
+        "description" : "Game with the passed id is logically marked for deletion",
+        "security" : [ {
+          "write-auth" : [ ]
+        } ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "type" : "string",
+          "required" : true
+        } ]
       }
     },
-    "/leaderboard" : {
+    "/players" : {
       "get" : {
-        "tags" : [ "player" ],
-        "summary" : "Get the list of winners",
-        "description" : "Returns a list of top winners",
-        "parameters" : [ {
-          "name" : "count",
-          "in" : "query",
-          "description" : "Get players with most win",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          },
-          "collectionFormat" : "csv"
-        } ],
+        "operationId" : "findPlayers",
         "responses" : {
           "200" : {
-            "description" : "successful operation",
+            "description" : "",
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Game"
+                "$ref" : "#/definitions/player-complete-data"
+              }
+            },
+            "examples" : {
+              "application/json" : [ {
+                "id" : "ut commodo",
+                "name" : "magna fugiat in aute officia",
+                "email" : "joTDC3FEKT@toz.uwj",
+                "password" : "elit",
+                "createdOn" : "1940-12-30T21:33:07.821Z",
+                "updatedOn" : "1948-08-09T19:56:06.657Z",
+                "friends" : [ {
+                  "id" : "minim veniam al"
+                }, {
+                  "id" : "cupidatat magna mollit sint"
+                }, {
+                  "id" : "dolore"
+                }, {
+                  "id" : "aliquip amet"
+                } ]
+              }, {
+                "id" : "dolore irure",
+                "name" : "ex nisi voluptate",
+                "email" : "1IjE7HeMIOLGtuk@zZHeDqMqEqHKXZHPiqiwGm.nuvf",
+                "password" : "nulla magna elit amet",
+                "createdOn" : "1957-08-02T05:49:03.160Z",
+                "updatedOn" : "1968-08-16T08:26:08.181Z",
+                "friends" : [ {
+                  "id" : "est"
+                }, {
+                  "id" : "eli"
+                }, {
+                  "id" : "irure ullamco sint"
+                }, {
+                  "id" : "ut irure"
+                } ]
+              }, {
+                "id" : "ad fugiat nisi",
+                "name" : "labore in officia",
+                "email" : "5OY18Wdf8v@MofgZUgpHCzj.bv",
+                "password" : "sed velit ut et",
+                "createdOn" : "1958-03-24T12:35:18.704Z",
+                "updatedOn" : "1984-09-29T03:27:39.402Z",
+                "friends" : [ {
+                  "id" : "dolore Excepteur"
+                }, {
+                  "id" : "consectetur eiusmod id dolor"
+                }, {
+                  "id" : "ipsum"
+                }, {
+                  "id" : "Ut irure"
+                }, {
+                  "id" : "esse qui tempor sint"
+                } ]
+              } ]
+            }
+          }
+        },
+        "tags" : [ "player" ]
+      },
+      "post" : {
+        "operationId" : "createPlayer",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/player-complete-data"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "",
+            "schema" : {
+              "$ref" : "#/definitions/player-complete-data"
+            },
+            "examples" : {
+              "application/json" : {
+                "id" : "ut commodo",
+                "name" : "magna fugiat in aute officia",
+                "email" : "joTDC3FEKT@toz.uwj",
+                "password" : "elit",
+                "createdOn" : "1940-12-30T21:33:07.821Z",
+                "updatedOn" : "1948-08-09T19:56:06.657Z",
+                "friends" : [ {
+                  "id" : "minim veniam al"
+                }, {
+                  "id" : "cupidatat magna mollit sint"
+                }, {
+                  "id" : "dolore"
+                }, {
+                  "id" : "aliquip amet"
+                } ]
+              }
+            }
+          }
+        },
+        "tags" : [ "player" ]
+      }
+    },
+    "/players/{id}" : {
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "type" : "string",
+        "required" : true
+      } ],
+      "get" : {
+        "operationId" : "getPlayer",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "schema" : {
+              "$ref" : "#/definitions/player-complete-data"
+            },
+            "examples" : {
+              "application/json" : {
+                "id" : "ut commodo",
+                "name" : "magna fugiat in aute officia",
+                "email" : "joTDC3FEKT@toz.uwj",
+                "password" : "elit",
+                "createdOn" : "1940-12-30T21:33:07.821Z",
+                "updatedOn" : "1948-08-09T19:56:06.657Z",
+                "friends" : [ {
+                  "id" : "minim veniam al"
+                }, {
+                  "id" : "cupidatat magna mollit sint"
+                }, {
+                  "id" : "dolore"
+                }, {
+                  "id" : "aliquip amet"
+                } ]
+              }
+            }
+          }
+        },
+        "tags" : [ "player" ]
+      },
+      "put" : {
+        "operationId" : "updatePlayer",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/player-partial-data"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "schema" : {
+              "$ref" : "#/definitions/player-complete-data"
+            },
+            "examples" : {
+              "application/json" : {
+                "id" : "ut commodo",
+                "name" : "magna fugiat in aute officia updated",
+                "email" : "joTDC3FEKT@toz.uwj",
+                "password" : "elit",
+                "createdOn" : "1940-12-30T21:33:07.821Z",
+                "updatedOn" : "1948-08-09T19:56:06.657Z",
+                "friends" : [ {
+                  "id" : "minim veniam al"
+                }, {
+                  "id" : "cupidatat magna mollit sint"
+                }, {
+                  "id" : "dolore"
+                }, {
+                  "id" : "aliquip amet"
+                } ]
+              }
+            }
+          }
+        },
+        "tags" : [ "player" ]
+      },
+      "delete" : {
+        "operationId" : "deletePlayer",
+        "responses" : {
+          "204" : {
+            "description" : "Successfully delete"
+          }
+        },
+        "tags" : [ "player" ],
+        "security" : [ {
+          "write-auth" : [ ]
+        } ]
+      }
+    }
+  },
+  "definitions" : {
+    "game-partial-data" : {
+      "title" : "Game Partial Data",
+      "description" : "The properties that are shared amongst all versions of the Game model.",
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        }
+      }
+    },
+    "game-complete-data" : {
+      "title" : "Game Complete Data",
+      "description" : "The properties that are allowed when creating or updating a Game.",
+      "allOf" : [ {
+        "$ref" : "#/definitions/game-partial-data"
+      }, {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "moves" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "xPos" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "minimum" : 1,
+                  "maximum" : 9
+                },
+                "xPlayer" : {
+                  "$ref" : "#/definitions/player-partial-data"
+                },
+                "yPos" : {
+                  "type" : "integer",
+                  "format" : "int32",
+                  "minimum" : 1,
+                  "maximum" : 9
+                },
+                "yPlayer" : {
+                  "$ref" : "#/definitions/player-partial-data"
+                }
+              },
+              "required" : [ "xPlayer", "yPlayer" ]
+            }
+          },
+          "result" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "winner" : {
+                  "$ref" : "#/definitions/player-partial-data"
+                },
+                "loser" : {
+                  "$ref" : "#/definitions/player-partial-data"
+                }
               }
             }
           },
-          "400" : {
-            "description" : "Invalid tag value"
+          "status" : {
+            "type" : "string",
+            "enum" : [ "started", "in progress", "ended" ]
+          },
+          "session" : {
+            "type" : "string",
+            "format" : "uri"
           }
         },
-        "security" : [ {
-          "game_auth" : [ "write:games", "read:games" ]
-        } ],
-        "deprecated" : true
+        "required" : [ "name" ]
+      } ]
+    },
+    "player-complete-data" : {
+      "title" : "Player Complete Data",
+      "description" : "The properties that are shared amongst all versions of the Player model.",
+      "allOf" : [ {
+        "$ref" : "#/definitions/player-partial-data"
+      }, {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string",
+            "format" : "email"
+          },
+          "password" : {
+            "type" : "string",
+            "format" : "password"
+          },
+          "createdOn" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "updatedOn" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "friends" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/player-partial-data"
+            }
+          }
+        }
+      } ]
+    },
+    "player-partial-data" : {
+      "title" : "Player Partial Data",
+      "description" : "The properties that are shared amongst all versions of the Player model.",
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        }
       }
     }
   },
   "securityDefinitions" : {
-    "game_auth" : {
-      "type" : "oauth2",
-      "authorizationUrl" : "http://game.swagger.io/oauth/dialog",
-      "flow" : "implicit",
-      "scopes" : {
-        "write:games" : "modify games in your account",
-        "read:games" : "read your games"
-      }
-    },
-    "api_key" : {
+    "read-auth" : {
       "type" : "apiKey",
       "name" : "api_key",
-      "in" : "header"
-    }
-  },
-  "definitions" : {
-    "Player" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "playerName" : {
-          "type" : "string"
-        },
-        "firstName" : {
-          "type" : "string"
-        },
-        "lastName" : {
-          "type" : "string"
-        },
-        "email" : {
-          "type" : "string"
-        },
-        "password" : {
-          "type" : "string"
-        },
-        "phone" : {
-          "type" : "string"
-        },
-        "gameWon" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Game/id"
-          }
-        },
-        "gameLost" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Game/id"
-          }
-        },
-        "friends" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Player/playerName"
-          }
-        }
-      }
+      "in" : "header",
+      "description" : "API key is needed for reading the data"
     },
-    "Game" : {
-      "type" : "object",
-      "required" : [ "oPlayer", "xPlayer" ],
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "name" : {
-          "type" : "string",
-          "default" : "My Game",
-          "example" : "mygame"
-        },
-        "created" : {
-          "type" : "string",
-          "format" : "date-time"
-        },
-        "xPlayer" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Player/playerName"
-          }
-        },
-        "xPosition" : {
-          "type" : "string"
-        },
-        "oPlayer" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Player/playerName"
-          }
-        },
-        "oPosition" : {
-          "type" : "string"
-        },
-        "winner" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Player/playerName"
-          }
-        },
-        "looser" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Player/playerName"
-          }
-        },
-        "winnerSign" : {
-          "type" : "string"
-        },
-        "looserSign" : {
-          "type" : "string"
-        },
-        "status" : {
-          "type" : "string",
-          "description" : "game status",
-          "enum" : [ "started", "playing", "ended" ]
-        }
-      }
-    },
-    "ApiResponse" : {
-      "type" : "object",
-      "properties" : {
-        "code" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "type" : {
-          "type" : "string"
-        },
-        "message" : {
-          "type" : "string"
-        }
+    "write-auth" : {
+      "type" : "oauth2",
+      "flow" : "accessCode",
+      "authorizationUrl" : "https://accounts.google.com/o/oauth2/auth",
+      "tokenUrl" : "https://accounts.google.com/o/oauth2/token",
+      "description" : "oAuth is needed for writing the data",
+      "scopes" : {
+        "write:game" : "Create or update game data",
+        "write:player" : "Create or update player data"
       }
     }
   },
-  "externalDocs" : {
-    "description" : "Find out more about Swagger",
-    "url" : "http://swagger.io"
-  },
-  "basePath" : "/integratedworld/tic-tac-toe-ef/1.0.0"
+  "basePath" : "/v1",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "security" : [ {
+    "read-auth" : [ ]
+  }, {
+    "write-auth" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "game",
+    "description" : "Organizes game APIs"
+  }, {
+    "name" : "player",
+    "description" : "Organizes game APIs"
+  } ]
 }
